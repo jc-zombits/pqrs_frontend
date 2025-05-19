@@ -6,6 +6,19 @@ import axios from 'axios';
 
 
 const Resumen = () => {
+
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  
+    const getCardStyle = (index) => ({
+    width: '100%',
+    height: '100%',
+    boxShadow: hoveredIndex === index ? '0 4px 12px rgba(0,0,0,0.2)' : '0 2px 8px rgba(0,0,0,0.1)',
+    borderRadius: '8px',
+    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+    transform: hoveredIndex === index ? 'scale(1.05)' : 'scale(1)',
+    cursor: 'pointer'
+  });
+
   const [stats, setStats] = useState({
     total: 0,
     oportuno: 0,
@@ -96,13 +109,6 @@ const Resumen = () => {
     );
   }
 
-  const cardStyle = {
-    width: '100%',
-    height: '100%',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-    borderRadius: '8px'
-  };
-
   const cardData = [
     { title: "Total PQRS", value: stats.total, color: '#1890ff' },
     { title: "Oportuno", value: stats.oportuno, color: '#52c41a' },
@@ -114,12 +120,12 @@ const Resumen = () => {
 
   return (
     <div style={{ padding: '16px', width: '100%' }}>
-      <h2 style={{ marginBottom: '16px', fontSize: '20px', fontWeight: 'bold', color: '#333' }}>
-        Resumen PQRS - {stats.periodo}
+      <h2 style={{ marginBottom: '16px', fontSize: '20px', fontWeight: 'bold', color: '#666' }}>
+        Resumen PQRS || corte {stats.periodo}
       </h2>
 
       <div style={{ marginBottom: '24px' }}>
-        <label style={{ marginRight: 8, color: '#0044d0', fontWeight: 'bold' }}>Filtrar por Subsecretaría:</label>
+        <label style={{ marginRight: 8, color: '#0118D8', fontWeight: 'bold' }}>Filtrar por Subsecretaría:</label>
         <Select
           allowClear
           placeholder="Seleccione una subsecretaría"
@@ -136,7 +142,11 @@ const Resumen = () => {
       <Row gutter={[16, 16]} style={{ width: '100%' }}>
         {cardData.map((item, index) => (
           <Col key={index} xs={24} sm={12} md={8} lg={6} xl={4} style={{ display: 'flex' }}>
-            <Card style={cardStyle}>
+            <Card
+              style={getCardStyle(index)}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
               <Statistic
                 title={<span style={{ fontWeight: '500' }}>{item.title}</span>}
                 value={item.value}

@@ -6,6 +6,7 @@ import OportunidadPorDiaChart from "../components/OportunidadPorDiaChart";
 import TemasPorMesChart from "../components/TemasPorMesChart";
 import TemaEstadoChart from "../components/TemaEstadoChart";
 import IngresosTotalMes from "../components/IngresosTotalMes";
+import ResumenTotal from "../components/ResumenTotal";
 import Resumen from "../components/Resumen"; // Asegúrate que la importación es correcta
 
 export default async function GraficasPage() {
@@ -32,9 +33,11 @@ export default async function GraficasPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Añade el componente Resumen aquí */}
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 col-span-1 lg:col-span-2">
+          <ResumenTotal />
+        </div>
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 col-span-1 lg:col-span-2">
           <Resumen />
         </div>
-        
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
           <EstadoMesChart />
         </div>
